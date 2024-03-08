@@ -39,7 +39,7 @@ const UsersPage = () => {
 
   const createFollow = () => {
     axios
-      .post(`http://localhost:5000/followers/${id}`, null, {
+      .post(`https://notnull.onrender.com/followers/${id}`, null, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -56,7 +56,7 @@ const UsersPage = () => {
 
   const removeFollow = () => {
     axios
-      .delete(`http://localhost:5000/followers/${id}`, {
+      .delete(`https://notnull.onrender.com/followers/${id}`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -71,7 +71,7 @@ const UsersPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/followers`, {
+      .get(`https://notnull.onrender.com/followers`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -86,7 +86,7 @@ const UsersPage = () => {
       });
       
     axios
-      .get(`http://localhost:5000/posts/followers/${id}`, {
+      .get(`https://notnull.onrender.com/posts/followers/${id}`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -98,7 +98,7 @@ const UsersPage = () => {
       .catch((err) => {});
 
     axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`https://notnull.onrender.com/users/${id}`)
       .then((result) => {
         dispatch(setUsers(result.data.result[0]));
         console.log(result.data.result[0]);
@@ -107,7 +107,7 @@ const UsersPage = () => {
         console.log(err);
       });
     axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`https://notnull.onrender.com/users/${id}`)
       .then((result) => {
         console.log(result.data.result[0]);
         dispatch(setUsers(result.data.result[0]));

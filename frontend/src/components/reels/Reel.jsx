@@ -24,7 +24,7 @@ const reelsPage = () => {
 
   const getAllReels = () => {
     axios
-      .get(`http://localhost:5000/reels`, {
+      .get(`https://notnull.onrender.com/reels`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -51,7 +51,7 @@ const reelsPage = () => {
   const handleCreateNewReel = () => {
     axios
       .post(
-        `http://localhost:5000/reels`,
+        `https://notnull.onrender.com/reels`,
         {
           video: reelVideoUrls[reelVideoUrls.length - 1]
         },

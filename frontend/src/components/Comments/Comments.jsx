@@ -30,7 +30,7 @@ const Comments = () => {
     const createPostComment = async (id) => {
         try {
           const result = await axios.post(
-            `http://localhost:5000/comments/post/${id}`
+            `https://notnull.onrender.com/comments/post/${id}`
           );
           if (result.data.success) {
             const comments = result.data.result;

@@ -36,7 +36,7 @@ const Story = () => {
   const dispatch = useDispatch();
   const getAllStory = () => {
     axios
-      .get(`http://localhost:5000/story`, {
+      .get(`https://notnull.onrender.com/story`, {
         headers: {
           authorization: `Bearer ${auth.token}`,
         },
@@ -96,7 +96,7 @@ const Story = () => {
   }, []);
   const personalPage = () => {
     axios
-      .get(`http://localhost:5000/users/${auth.userId}`)
+      .get(`https://notnull.onrender.com/users/${auth.userId}`)
       .then((result) => {
         dispatch(setUserInfo(result.data.result[0]));
         console.log(result.data.result[0]);
@@ -174,7 +174,7 @@ const Story = () => {
                 onClick={() => {
                   axios
                     .post(
-                      `http://localhost:5000/story`,
+                      `https://notnull.onrender.com/story`,
                       {
                         video: storyUrls[storyUrls.length - 1]
                       },

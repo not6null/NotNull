@@ -107,7 +107,7 @@ const Posts = () => {
     };
 
     axios
-      .post("http://localhost:5000/posts", NewPost, {
+      .post("https://notnull.onrender.com/posts", NewPost, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -125,7 +125,7 @@ const Posts = () => {
   const getPostComment = async (id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/comments/post/${id}`
+        `https://notnull.onrender.com/comments/post/${id}`
       );
       if (result.data.success) {
         const comments = result.data.result;
@@ -145,7 +145,7 @@ const Posts = () => {
   const createComment = async (id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/comments/post/${id}`,
+        `https://notnull.onrender.com/comments/post/${id}`,
         {
           comment: addCommentValue
         },
@@ -173,7 +173,7 @@ const Posts = () => {
   const updateComment = async (id, pID) => {
     try {
       const result = await axios.put(
-        `http://localhost:5000/comments/post/${id}`,
+        `https://notnull.onrender.com/comments/post/${id}`,
         {
           comment: upCommValue
         },
@@ -196,7 +196,7 @@ const Posts = () => {
   const deleteComment = async (id, pID) => {
     try {
       const result = await axios.delete(
-        `http://localhost:5000/comments/post/${id}`,
+        `https://notnull.onrender.com/comments/post/${id}`,
         {
           headers: {
             authorization: `Bearer ${auth.token}`
@@ -212,7 +212,7 @@ const Posts = () => {
 
   const handleDeletePost = (postId) => {
     axios
-      .delete(`http://localhost:5000/posts/${postId}`, {
+      .delete(`https://notnull.onrender.com/posts/${postId}`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -231,7 +231,7 @@ const Posts = () => {
       pic: img_url
     };
     axios
-      .put(`http://localhost:5000/posts/${postId}`, updatePost, {
+      .put(`https://notnull.onrender.com/posts/${postId}`, updatePost, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -277,7 +277,7 @@ const Posts = () => {
 
   const personalPage = () => {
     axios
-      .get(`http://localhost:5000/users/${auth.userId}`)
+      .get(`https://notnull.onrender.com/users/${auth.userId}`)
       .then((result) => {
         dispatch(setUserInfo(result.data.result[0]));
         console.log(result.data.result[0]);
@@ -307,7 +307,7 @@ const Posts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/posts")
+      .get("https://notnull.onrender.com/posts")
       .then((result) => {
         dispatch(setPosts(result.data.posts));
       })
@@ -318,7 +318,7 @@ const Posts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/likes")
+      .get("https://notnull.onrender.com/likes")
       .then((result) => {
         dispatch(setLikes(result.data.posts));
       })

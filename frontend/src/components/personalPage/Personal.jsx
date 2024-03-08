@@ -63,7 +63,7 @@ const [show, setShow] = useState(false)
 
   const personalPage = () => {
     axios
-      .get(`http://localhost:5000/users/${auth.userId}`)
+      .get(`https://notnull.onrender.com/users/${auth.userId}`)
       .then((result) => {
         dispatch(setUserInfo(result.data.result[0]));
         console.log(result.data.result[0]);
@@ -74,7 +74,7 @@ const [show, setShow] = useState(false)
   };
   const getPostByAuthor = () => {
     axios
-      .get(`http://localhost:5000/posts/authorPosts/${auth.userId}`)
+      .get(`https://notnull.onrender.com/posts/authorPosts/${auth.userId}`)
       .then((result) => {
         dispatch(setPosts(result.data.result));
         console.log(result.data.result);
@@ -84,7 +84,7 @@ const [show, setShow] = useState(false)
 
   const getFollowers = () => {
     axios
-      .get(`http://localhost:5000/followers`, {
+      .get(`https://notnull.onrender.com/followers`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -98,7 +98,7 @@ const [show, setShow] = useState(false)
       });
   };
   const createFollow= ()=>{
-    axios.post(`http://localhost:5000/followers/${id}`, {
+    axios.post(`https://notnull.onrender.com/followers/${id}`, {
       headers: {
         authorization: `Bearer ${auth.token}`,
       }
@@ -220,7 +220,7 @@ const [show, setShow] = useState(false)
                 onClick={() => {
                   axios
                     .put(
-                      `http://localhost:5000/users/${auth.userId}`,
+                      `https://notnull.onrender.com/users/${auth.userId}`,
                       {
                         cover: coverImageUrls[coverImageUrls.length - 1]
                       },
@@ -423,7 +423,7 @@ const [show, setShow] = useState(false)
                       onClick={() => {
                         axios
                           .put(
-                            `http://localhost:5000/users/${auth.userId}`,
+                            `https://notnull.onrender.com/users/${auth.userId}`,
                             {
                               photo: photoImageUrls[photoImageUrls.length - 1]
                             },

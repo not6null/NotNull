@@ -16,7 +16,7 @@ const FollowPost = () => {
       });
     console.log(auth.userId,auth.token);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/followers/userFollowers/${auth.userId}`, {
+        axios.get(`https://notnull.onrender.com/followers/userFollowers/${auth.userId}`, {
             headers: {
               authorization: `Bearer ${auth.token}`
             }
@@ -30,7 +30,7 @@ const FollowPost = () => {
           });
 
         console.log(followers);
-    axios.get(`http://localhost:5000/posts/search_1/${followers.result.following_user_id}`,
+    axios.get(`https://notnull.onrender.com/posts/search_1/${followers.result.following_user_id}`,
             {
             headers: {
               authorization: `Bearer ${auth.token}`

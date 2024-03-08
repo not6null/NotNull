@@ -26,7 +26,7 @@ const Message = () => {
 
   const getFollowers = () => {
     axios
-      .get(`http://localhost:5000/followers`, {
+      .get(`https://notnull.onrender.com/followers`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -41,7 +41,7 @@ const Message = () => {
 
   const getAllMessage = (id) => {
     axios
-      .get(`http://localhost:5000/messages/${id}`, {
+      .get(`https://notnull.onrender.com/messages/${id}`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }
@@ -57,7 +57,7 @@ const Message = () => {
 
   const personalPage = () => {
     axios
-      .get(`http://localhost:5000/users/${auth.userId}`)
+      .get(`https://notnull.onrender.com/users/${auth.userId}`)
       .then((result) => {
         dispatch(setUserInfo(result.data.result[0]));
       })
@@ -97,7 +97,7 @@ const Message = () => {
     };
 
     axios
-      .post(`http://localhost:5000/messages/${to}`, newMessage, {
+      .post(`https://notnull.onrender.com/messages/${to}`, newMessage, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }

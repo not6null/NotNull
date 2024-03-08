@@ -15,7 +15,7 @@ const Home = () => {
 
   const users = () => {
     axios
-      .get(`http://localhost:5000/followers/all`, {
+      .get(`https://notnull.onrender.com/followers/all`, {
         headers: {
           authorization: `Bearer ${auth.token}`
         }

@@ -38,7 +38,7 @@ const NavbarLogin = () => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/users/?name=${name}`);
+      const response = await fetch(`https://notnull.onrender.com/users/?name=${name}`);
 
       const parseResponse = await response.json();
       dispatch(setPool(true));

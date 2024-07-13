@@ -58,6 +58,7 @@ const Register = () => {
         if (result.data.success) {
           console.log(result);
           setStatus(true);
+          history("/")
           setMessage(result.data.message);
         } else throw Error;
       } catch (error) {
@@ -231,7 +232,6 @@ const Register = () => {
                             onClick={() => {
                               addNewUser();
                               apply(firstname, lastname, email, country);
-                              history("/");
                             }}
                             style={{
                               background:

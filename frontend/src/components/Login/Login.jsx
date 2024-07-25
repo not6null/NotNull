@@ -125,7 +125,7 @@ const Login = () => {
                           type="button"
                           data-te-ripple-init
                           data-te-ripple-color="light"
-                          onClick={handleGuestLogin}
+                          onClick={()=>login({email:"guest@example.com", password:"hashed_guest_password"})}
                           style={{
                             background:
                               "linear-gradient(135deg, #c3cfe2 0%, #f5f7fa 100%)"

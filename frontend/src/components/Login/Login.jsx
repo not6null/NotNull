@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   const handleGuestLogin = () => {
-    const guestEmail = "guest@example.com"; // Use a predefined guest email
+    const guestEmail = "guest@gmail.com"; // Use a predefined guest email
     const guestPassword = "hashed_guest_password"; // Use a predefined guest password
     login(guestEmail, guestPassword);
   };
@@ -125,7 +125,7 @@ const Login = () => {
                           type="button"
                           data-te-ripple-init
                           data-te-ripple-color="light"
-                          onClick={()=>login({email:"guest@example.com", password:"hashed_guest_password"})}
+                          onClick={()=>login({email:"guest@gmail.com", password:"hashed_guest_password"})}
                           style={{
                             background:
                               "linear-gradient(135deg, #c3cfe2 0%, #f5f7fa 100%)"

@@ -1,4 +1,4 @@
-import axios, { formToJSON } from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,37 +7,25 @@ import { Button } from "flowbite-react";
 import Navbar from "../Navbars/NavbarLogin";
 import { GoogleLogin } from "@react-oauth/google";
 import photo from "../images/NotNull-logos_white.png";
+
 const Login = () => {
-  //================= useNavigate =========================
-
   const history = useNavigate();
-
-  //===================================================
-
-  //================= useState =========================
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
-  //===================================================
-
-  //================= Redux ========================
-
   const dispatch = useDispatch();
 
-  const { isLoggedIn, token } = useSelector((state) => {
+  const { isLoggedIn } = useSelector((state) => {
     return {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn
     };
   });
 
-  //================= Functions ========================
-
-  //!=========== login ===============
-  const login = async (e) => {
+  const login = async (email, password) => {
     try {
       const result = await axios.post("https://notnull.onrender.com/users/login", {
         email,
@@ -45,12 +33,10 @@ const Login = () => {
       });
       if (result.data) {
         setMessage("");
-        console.log(result.data, isLoggedIn);
         dispatch(setUserId(result.data.userId));
         dispatch(setLogin(result.data.token));
       } else throw Error;
     } catch (error) {
-      console.log("--------------", email, "---------", password);
       if (error.response && error.response.data) {
         return setMessage(error.response.data.message);
       }
@@ -58,9 +44,14 @@ const Login = () => {
     }
   };
 
+  const handleGuestLogin = () => {
+    const guestEmail = "guest@example.com"; // Use a predefined guest email
+    const guestPassword = "guestPassword"; // Use a predefined guest password
+    login(guestEmail, guestPassword);
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
-      console.log(isLoggedIn);
       history("/post");
     }
   });
@@ -121,7 +112,7 @@ const Login = () => {
                           type="button"
                           data-te-ripple-init
                           data-te-ripple-color="light"
-                          onClick={login}
+                          onClick={() => login(email, password)}
                           style={{
                             background:
                               "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)"
@@ -129,11 +120,22 @@ const Login = () => {
                         >
                           Log in
                         </button>
+                        <button
+                          className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                          type="button"
+                          data-te-ripple-init
+                          data-te-ripple-color="light"
+                          onClick={handleGuestLogin}
+                          style={{
+                            background:
+                              "linear-gradient(135deg, #c3cfe2 0%, #f5f7fa 100%)"
+                          }}
+                        >
+                          Guest Login
+                        </button>
                         <GoogleLogin
                           onSuccess={(credentialResponse) => {
-                            console.log(credentialResponse);
                             dispatch(setLogin(credentialResponse.credential));
-                            /* setToken(credentialResponse.credential); */
                             localStorage.setItem(
                               "token",
                               credentialResponse.credential
@@ -141,7 +143,7 @@ const Login = () => {
                             navigate("/");
                           }}
                           onError={() => {
-                            setError("Google login failed");
+                            setMessage("Google login failed");
                           }}
                         />
                       </div>

@@ -46,7 +46,7 @@ const Login = () => {
 
   const handleGuestLogin = () => {
     const guestEmail = "guest@example.com"; // Use a predefined guest email
-    const guestPassword = "guestPassword"; // Use a predefined guest password
+    const guestPassword = "hashed_guest_password"; // Use a predefined guest password
     login(guestEmail, guestPassword);
   };
 

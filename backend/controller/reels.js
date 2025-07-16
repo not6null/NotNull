@@ -1,9 +1,9 @@
-const { pool } = require("../models/db");
+import { pool } from "../models/db.js";
 
-const createNewReels = (req, res) => {
+export const createNewReels = (req, res) => {
   const { video } = req.body;
   const user_id = req.token.userId;
-  const query = `INSERT INTO reels (video,user_id)VALUES ($1,$2) RETURNING *`;
+  const query = `INSERT INTO reels (video, user_id) VALUES ($1, $2) RETURNING *`;
   const value = [video, user_id];
   pool
     .query(query, value)
@@ -22,16 +22,9 @@ const createNewReels = (req, res) => {
       });
     });
 };
-// CREATE TABLE reels (
-//     id SERIAL PRIMARY KEY,
-//     video VARCHAR NOT NULL,
-//     user_id INTEGER,
-//     created_at TIMESTAMP DEFAULT NOW(),
-//     FOREIGN Key (user_id) REFERENCES users(id),
-//     is_deleted SMALLINT DEFAULT 0
-//   );
-const getAllReels = (req, res) => {
-  const query = `SELECT * FROM reels WHERE is_deleted= 0`;
+
+export const getAllReels = (req, res) => {
+  const query = `SELECT * FROM reels WHERE is_deleted = 0`;
   pool
     .query(query)
     .then((result) => {
@@ -49,7 +42,8 @@ const getAllReels = (req, res) => {
       });
     });
 };
-const deletedReels = (req, res) => {
+
+export const deletedReels = (req, res) => {
   const { id } = req.params;
   const query = `UPDATE reels SET is_deleted=1 WHERE id=$1;`;
   const data = [id];
@@ -72,9 +66,4 @@ const deletedReels = (req, res) => {
         err: err
       });
     });
-};
-module.exports = {
-  createNewReels,
-  getAllReels,
-  deletedReels
 };

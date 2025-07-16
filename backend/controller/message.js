@@ -1,5 +1,6 @@
-const { pool } = require("../models/db");
-const createNewMessage = (req, res) => {
+import { pool } from "../models/db.js";
+
+export const createNewMessage = (req, res) => {
   const { messages } = req.body;
   const receiver_id = req.params.id;
   const sender_id = req.token.userId;
@@ -27,7 +28,8 @@ const createNewMessage = (req, res) => {
       });
     });
 };
-const getAllMessage = (req, res) => {
+
+export const getAllMessage = (req, res) => {
   const { id } = req.params;
   const sender_id = req.token.userId;
   const query = `
@@ -54,9 +56,4 @@ const getAllMessage = (req, res) => {
         message: err.message
       });
     });
-};
-
-module.exports = {
-  createNewMessage,
-  getAllMessage
 };

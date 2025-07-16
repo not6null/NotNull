@@ -1,6 +1,7 @@
-const { pool } = require("../models/db");
-const getAllFollowers = (req, res) => {
-  const query = `SELECT * FROM users;`
+import { pool } from "../models/db.js";
+
+export const getAllFollowers = (req, res) => {
+  const query = `SELECT * FROM users;`;
   pool
     .query(query)
     .then((result) => {
@@ -16,7 +17,8 @@ const getAllFollowers = (req, res) => {
       });
     });
 };
-const createFollower = (req, res) => {
+
+export const createFollower = (req, res) => {
   const following_user_id = req.token.userId;
   const followed_user_id = req.params.id;
   const values = [following_user_id, followed_user_id];
@@ -40,7 +42,7 @@ const createFollower = (req, res) => {
     });
 };
 
-const deleteFollower = (req, res) => {
+export const deleteFollower = (req, res) => {
   const following_user_id = req.params.id;
   const values = [following_user_id];
   const query = `DELETE FROM follows WHERE following_user_id=$1;`;
@@ -63,7 +65,7 @@ const deleteFollower = (req, res) => {
     });
 };
 
-const getFollowersUser = (req, res) => {
+export const getFollowersUser = (req, res) => {
   const followed_user_id = req.params.id;
   const values = [followed_user_id];
   const query = `select * from follows WHERE followed_user_id=$1`;
@@ -86,7 +88,7 @@ const getFollowersUser = (req, res) => {
     });
 };
 
-const userFollower = (req, res) => {
+export const userFollower = (req, res) => {
   const following_user_id = req.token.userId;
   const query = `SELECT * FROM follows INNER JOIN users ON users.id=follows.followed_user_id WHERE following_user_id=$1 AND is_deleted=0`;
   const value = [following_user_id];
@@ -106,11 +108,4 @@ const userFollower = (req, res) => {
         error_message: err.message
       });
     });
-};
-module.exports = {
-  createFollower,
-  deleteFollower,
-  getFollowersUser,
-  userFollower,
-  getAllFollowers
 };

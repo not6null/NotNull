@@ -1,14 +1,15 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createNewRole,
   createNewPermission,
   createNewRolePermission,
-} = require("../controller/role");
+} from "../controller/role.js";
+
 const rolesRouter = express.Router();
 
-//controllers
-
+// controllers
 rolesRouter.post("/", createNewRole);
 rolesRouter.post("/permission", createNewPermission);
 rolesRouter.post("/role_permission", createNewRolePermission);
-module.exports = rolesRouter;
+
+export default rolesRouter;

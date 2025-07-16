@@ -1,12 +1,12 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createFollower,
   deleteFollower,
   getFollowersUser,
   userFollower,
   getAllFollowers
-} = require("../controller/follower");
-const authentication = require("../middleware/Authentication");
+} from "../controller/follower.js";
+import { authentication } from "../middleware/Authentication.js";
 
 const followerRouter = express.Router();
 
@@ -16,4 +16,4 @@ followerRouter.get("/userFollowers/:id", authentication, getFollowersUser);
 followerRouter.get("/", authentication, userFollower);
 followerRouter.get("/all", authentication, getAllFollowers);
 
-module.exports = followerRouter;
+export default followerRouter;

@@ -1,12 +1,12 @@
-const express = require('express');
-const { CreateLike, deleteLike, getLikeById, getAllLikes } = require('../controller/like');
-const authentication = require('../middleware/Authentication');
+import express from "express";
+import { CreateLike, deleteLike, getLikeById, getAllLikes } from "../controller/like.js";
+import { authentication } from "../middleware/Authentication.js";
 
 const likeRouter = express.Router();
 
-likeRouter.post('/search/:id',authentication,CreateLike);
-likeRouter.delete('/delete/:id',authentication,deleteLike);
-likeRouter.get("/:id",getLikeById);
-likeRouter.get("/",getAllLikes);
+likeRouter.post('/search/:id', authentication, CreateLike);
+likeRouter.delete('/delete/:id', authentication, deleteLike);
+likeRouter.get("/:id", getLikeById);
+likeRouter.get("/", getAllLikes);
 
-module.exports=likeRouter;
+export default likeRouter;

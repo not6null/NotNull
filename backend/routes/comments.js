@@ -1,5 +1,5 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createNewCommentPost,
   createNewCommentStory,
   createNewCommentReels,
@@ -11,13 +11,10 @@ const {
   updateCommentReelById,
   deleteCommentPost,
   deleteCommentStory,
-  deleteCommentReels
-} = require("../controller/comments");
- 
-//controllers
-//middleware
-const authentication = require("../middleware/Authentication");
-// const authorization = require("../middleware/Authorization");
+  deleteCommentReels,
+} from "../controller/comments.js";
+
+import { authentication } from "../middleware/Authentication.js";
 
 const commentsRouter = express.Router();
 
@@ -30,8 +27,8 @@ commentsRouter.get("/reels/:id", getCommentByReelsId);
 commentsRouter.put("/post/:id", authentication, updateCommentPostById);
 commentsRouter.put("/story/:id", authentication, updateCommentStoryById);
 commentsRouter.put("/reels/:id", authentication, updateCommentReelById);
-commentsRouter.delete(`/post/:id`, authentication, deleteCommentPost);
-commentsRouter.delete(`/story/:id`, authentication, deleteCommentStory);
-commentsRouter.delete(`/reels/:id`, authentication, deleteCommentReels);
+commentsRouter.delete("/post/:id", authentication, deleteCommentPost);
+commentsRouter.delete("/story/:id", authentication, deleteCommentStory);
+commentsRouter.delete("/reels/:id", authentication, deleteCommentReels);
 
-module.exports = commentsRouter;
+export default commentsRouter;

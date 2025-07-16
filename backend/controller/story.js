@@ -1,13 +1,13 @@
-const { pool } = require("../models/db");
+import { pool } from "../models/db.js";
 
-const getAllStories = (req, res) => {
+export const getAllStories = (req, res) => {
   const query = `SELECT * 
-  FROM story
-  INNER JOIN users ON users.id = story.user_id
-  WHERE story.is_deleted = 0;`;
+    FROM story
+    INNER JOIN users ON users.id = story.user_id
+    WHERE story.is_deleted = 0;`;
   const updateQuery = `UPDATE story
-  SET is_deleted = 1
-  WHERE created_at <= NOW() - INTERVAL '24 HOURS' AND is_deleted = 0;`;
+    SET is_deleted = 1
+    WHERE created_at <= NOW() - INTERVAL '24 HOURS' AND is_deleted = 0;`;
   pool
     .query(query)
     .then((result) => {
@@ -26,7 +26,8 @@ const getAllStories = (req, res) => {
       });
     });
 };
-const createNewStory = (req, res) => {
+
+export const createNewStory = (req, res) => {
   const { photo, video } = req.body;
   const user_id = req.token.userId;
   const query = `INSERT INTO story (photo,video,user_id) VALUES ($1,$2,$3) RETURNING *`;
@@ -48,7 +49,8 @@ const createNewStory = (req, res) => {
       });
     });
 };
-const getStoryById = (req, res) => {
+
+export const getStoryById = (req, res) => {
   const id = req.params.id;
   const query = `SELECT * FROM story WHERE id = $1 AND is_deleted=0;`;
   const data = [id];
@@ -78,8 +80,7 @@ const getStoryById = (req, res) => {
     });
 };
 
-//make the user delete his stroy
-const deleteStoryById = (req, res) => {
+export const deleteStoryById = (req, res) => {
   const { id } = req.params;
   const query = `UPDATE story SET is_deleted=1 WHERE id=$1;`;
   const data = [id];
@@ -104,8 +105,7 @@ const deleteStoryById = (req, res) => {
     });
 };
 
-// getStoryByAuthor
-const getStoryByAuthor = (req, res) => {
+export const getStoryByAuthor = (req, res) => {
   const commenter = req.token.userId;
   const query = `SELECT * FROM story WHERE commenter = $1 AND is_deleted=0;`;
   const values = [commenter];
@@ -131,12 +131,4 @@ const getStoryByAuthor = (req, res) => {
         err: err.message
       });
     });
-};
-
-module.exports = {
-  getAllStories,
-  createNewStory,
-  getStoryById,
-  deleteStoryById,
-  getStoryByAuthor
 };

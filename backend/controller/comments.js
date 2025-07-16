@@ -1,9 +1,8 @@
-const { pool } = require("../models/db");
+import { pool } from "../models/db.js";
 
-const createNewCommentPost = (req, res) => {
+export const createNewCommentPost = (req, res) => {
   const post_id = req.params.id;
   const commenter = req.token.userId;
-
   const { comment } = req.body;
 
   const query = `INSERT INTO comment_posts (comment, commenter, post_id) VALUES ($1,$2,$3) RETURNING *`;
@@ -22,11 +21,12 @@ const createNewCommentPost = (req, res) => {
       res.status(404).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
-const getCommentByPostId = (req, res) => {
+
+export const getCommentByPostId = (req, res) => {
   const { id } = req.params;
   const query = `SELECT comment_posts.comment, comment_posts.created_at, comment_posts.post_id, users.firstName, users.photo, comment_posts.commenter,comment_posts.id, comment_posts.is_deleted
   FROM comment_posts
@@ -46,15 +46,14 @@ const getCommentByPostId = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
 
-const createNewCommentStory = (req, res) => {
+export const createNewCommentStory = (req, res) => {
   const story_id = req.params.id;
   const commenter = req.token.userId;
-
   const { comment } = req.body;
 
   const query = `INSERT INTO comment_story (comment, commenter, story_id) VALUES ($1,$2,$3) RETURNING *`;
@@ -73,11 +72,12 @@ const createNewCommentStory = (req, res) => {
       res.status(404).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
-const getCommentByStoryId = (req, res) => {
+
+export const getCommentByStoryId = (req, res) => {
   const { id } = req.params;
   const query = `SELECT comment_story.comment, comment_story.story_id, users.firstName, comment_story.commenter
     FROM comment_story
@@ -97,14 +97,14 @@ const getCommentByStoryId = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
-const createNewCommentReels = (req, res) => {
+
+export const createNewCommentReels = (req, res) => {
   const reel_id = req.params.id;
   const commenter = req.token.userId;
-
   const { comment } = req.body;
 
   const query = `INSERT INTO comment_reel (comment, commenter, reel_id) VALUES ($1,$2,$3) RETURNING *`;
@@ -123,11 +123,12 @@ const createNewCommentReels = (req, res) => {
       res.status(404).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
-const getCommentByReelsId = (req, res) => {
+
+export const getCommentByReelsId = (req, res) => {
   const { id } = req.params;
   const query = `SELECT comment_reel.comment, comment_reel.reel_id, users.firstName, comment_reel.commenter
     FROM comment_reel
@@ -147,12 +148,12 @@ const getCommentByReelsId = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
 
-const updateCommentPostById = (req, res) => {
+export const updateCommentPostById = (req, res) => {
   const id = req.params.id;
   let { comment } = req.body;
   const commenter = req.token.userId;
@@ -176,12 +177,12 @@ const updateCommentPostById = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
 
-const updateCommentStoryById = (req, res) => {
+export const updateCommentStoryById = (req, res) => {
   const id = req.params.id;
   let { comment } = req.body;
   const commenter = req.token.userId;
@@ -205,12 +206,12 @@ const updateCommentStoryById = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
 
-const updateCommentReelById = (req, res) => {
+export const updateCommentReelById = (req, res) => {
   const id = req.params.id;
   let { comment } = req.body;
   const commenter = req.token.userId;
@@ -234,11 +235,12 @@ const updateCommentReelById = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err,
       });
     });
 };
-const deleteCommentPost = (req, res) => {
+
+export const deleteCommentPost = (req, res) => {
   const { id } = req.params;
   const query = `UPDATE comment_posts SET is_deleted=1 WHERE id=$1`;
   const value = [id];
@@ -261,7 +263,8 @@ const deleteCommentPost = (req, res) => {
       });
     });
 };
-const deleteCommentStory = (req, res) => {
+
+export const deleteCommentStory = (req, res) => {
   const { id } = req.params;
   const query = `UPDATE comment_story SET is_deleted=1 WHERE id=$1`;
   const value = [id];
@@ -284,7 +287,8 @@ const deleteCommentStory = (req, res) => {
       });
     });
 };
-const deleteCommentReels = (req, res) => {
+
+export const deleteCommentReels = (req, res) => {
   const { id } = req.params;
   const query = `UPDATE comment_reel SET is_deleted=1 WHERE id=$1`;
   const value = [id];
@@ -306,18 +310,4 @@ const deleteCommentReels = (req, res) => {
         message: "server error",
       });
     });
-};
-module.exports = {
-  createNewCommentPost,
-  createNewCommentStory,
-  createNewCommentReels,
-  getCommentByPostId,
-  getCommentByStoryId,
-  getCommentByReelsId,
-  updateCommentPostById,
-  updateCommentStoryById,
-  updateCommentReelById,
-  deleteCommentPost,
-  deleteCommentStory,
-  deleteCommentReels,
 };

@@ -1,9 +1,10 @@
-const express = require("express");
-const { createNewMessage, getAllMessage } = require("../controller/message");
-const authentication = require("../middleware/Authentication");
+import express from "express";
+import { createNewMessage, getAllMessage } from "../controller/message.js";
+import { authentication } from "../middleware/Authentication.js";
+
 const messagesRouter = express.Router();
 
 messagesRouter.post("/:id", authentication, createNewMessage);
 messagesRouter.get("/:id", authentication, getAllMessage);
 
-module.exports = messagesRouter;
+export default messagesRouter;

@@ -1,20 +1,24 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   register,
   login,
   getUserById,
   updateData,
-  search
-} = require("../controller/users");
+  search,
+  getAllUsers,
+} from "../controller/users.js";
+import { authentication } from "../middleware/Authentication.js";
 
 const userRouter = express.Router();
-userRouter.post("/register", register);
+
 userRouter.post("/login", login);
+userRouter.post("/register", register);
+userRouter.get("/all", getAllUsers); 
 userRouter.get("/:id", getUserById);
 userRouter.get("/", search);
+userRouter.put("/:id", authentication, updateData);
 userRouter.get("*", (req, res) => {
   res.send("working");
 });
-userRouter.put("/:id", updateData);
 
-module.exports = userRouter;
+export default userRouter;

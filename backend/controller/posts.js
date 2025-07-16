@@ -1,4 +1,4 @@
-const { pool } = require("../models/db");
+import { pool } from "../models/db.js";
 
 const getAllPost = (req, res) => {
   pool
@@ -9,7 +9,6 @@ const getAllPost = (req, res) => {
       WHERE posts.is_deleted = 0
       ORDER BY created_at;`
     )
-
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -112,7 +111,6 @@ const createNewPost = (req, res) => {
     });
 };
 
-// we have a problem in join statement
 const getPostById = (req, res) => {
   const { id } = req.params;
   const values = [id];
@@ -164,7 +162,6 @@ const getPostByAuthor = (req, res) => {
   pool
     .query(query, data)
     .then((result) => {
-      console.log(result);
       if (result.rows.length === 0) {
         res.status(404).json({
           success: false,
@@ -184,6 +181,7 @@ const getPostByAuthor = (req, res) => {
       });
     });
 };
+
 const getAllPostsUser = (req, res) => {
   const { user_id } = req.params;
   const query = `SELECT * FROM posts WHERE user_id = $1 AND is_deleted=0;`;
@@ -212,7 +210,6 @@ const getAllPostsUser = (req, res) => {
     });
 };
 
-//! this function will be used for User related to his followers
 const getAllPostsFollowers = (req, res) => {
   const user_id = req.params.id;
   const query = `SELECT * FROM posts WHERE user_id = $1 AND is_deleted=0;`;
@@ -241,7 +238,7 @@ const getAllPostsFollowers = (req, res) => {
     });
 };
 
-module.exports = {
+export {
   getAllPost,
   deletePostById,
   updatePost,
